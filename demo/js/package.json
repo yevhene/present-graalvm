@@ -1,0 +1,13 @@
+{
+  "name": "js",
+  "version": "1.0.0",
+  "description": "",
+  "main": "benchmark.js",
+  "license": "ISC",
+  "scripts": {
+    "graph": "/opt/graalvm/bin/node --jvm --polyglot graph.js"
+  },
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
