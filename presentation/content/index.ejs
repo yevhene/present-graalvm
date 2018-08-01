@@ -1,0 +1,296 @@
+<section>
+  <h1>GraalVM</h1>
+
+  <small>
+    Yevhen Shemet<br />
+    github: <a target="_blank" href="https://github.com/yevhene/present-graalvm">yevhene/present-graalvm</a>
+  </small>
+</section>
+
+<section>
+  <h2>GraalVM</h2>
+
+  <section>
+    <h3>Parts</h3>
+
+    <ul>
+      <li>The Graal compiler - Graal is a dynamic compiler written in Java that integrates with the HotSpot JVM. It has a focus on high performance and extensibility. In addition, it provides optimized performance for Truffle-based languages running on the JVM.</li>
+      <li>Substrate VM - is a framework that allows ahead-of-time (AOT) compilation of Java applications under closed-world assumption into executable images or shared objects (ELF-64 or 64-bit Mach-O).</li>
+      <li>Truffle - Language Implementation Framework</li>
+    </ul>
+  </section>
+</section>
+
+<section>
+  <h2>Languages</h2>
+
+  <section>
+    <ul>
+      <li>Python</li>
+      <li>JavaScript</li>
+      <li>R</li>
+      <li>Ruby</li>
+      <li>LLVM</li>
+    </ul>
+  </section>
+
+  <section>
+    <h3>LLVM</h3>
+
+    <h4>Run native languages on the JVM</h3>
+  </section>
+
+  <section>
+    <h3>Combine Languages</h3>
+
+    <pre><code class="hljs" data-trim>
+const express = require('express')
+const app = express()
+
+const BigInteger = Java.type('java.math.BigInteger')
+
+app.get('/', function (req, res) {
+  var text = 'Hello World from Graal.js!<br> '
+
+  // Using Java standard library classes
+  text += BigInteger.valueOf(10).pow(100)
+          .add(BigInteger.valueOf(43)).toString() + '<br>'
+
+  // (continued...)
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Combine Languages</h3>
+
+    <pre><code class="hljs" data-trim>
+  text += Polyglot.eval('R',
+    `svg();
+     require(lattice);
+     x &lt;- 1:100
+     y &lt;- sin(x/10)
+     z &lt;- cos(x^1.3/(runif(1)*5+10))
+     print(cloud(x~y*z, main="cloud plot"))
+     grDevices:::svg.off()
+    `);
+
+  res.send(text)
+})
+
+app.listen(3000, function () {
+  console.log('Example app listening on port 3000!')
+})
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Combine Languages</h3>
+
+    <img src="images/combine-languages.png" />
+  </section>
+</section>
+
+<section>
+  <h2>TruffleRuby</h2>
+
+  <section>
+    <h3>Installation</h3>
+
+    <pre><code class="hljs" data-trim>
+$ rvm install truffleruby
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Benchmark (MRI)</h3>
+
+    <pre><code class="hljs" data-trim>
+$ ruby -v
+ruby 2.5.1p57 (2018-03-29 revision 63029)
+$ ruby benchmark.rb
+Running your benchmark...
+-------------------------------------------------------------------
+Warm up results:
+-------------------------------------------------------------------
+19x19 1_000 iterations        5.53 i/min  10.85 s (avg) (± 1.11%)
+
+Runtime results:
+-------------------------------------------------------------------
+19x19 1_000 iterations        5.58 i/min  10.76 s (avg) (± 0.62%)
+-------------------------------------------------------------------
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Benchmark (JRuby)</h3>
+
+    <pre><code class="hljs" data-trim>
+$ ruby -v
+jruby 9.2.0.0 (2.5.0)
+$ ruby benchmark.rb
+Running your benchmark...
+-------------------------------------------------------------------
+Warm up results:
+-------------------------------------------------------------------
+19x19 1_000 iterations        8.36 i/min  7.18 s (avg) (± 8.93%)
+
+Runtime results:
+-------------------------------------------------------------------
+19x19 1_000 iterations        8.57 i/min  7.00 s (avg) (± 0.45%)
+-------------------------------------------------------------------
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Benchmark (GraalVM)</h3>
+
+    <pre><code class="hljs" data-trim>
+$ ruby -v
+truffleruby 1.0.0-rc3, like ruby 2.4.4, GraalVM CE Native
+$ ruby benchmark.rb
+Running your benchmark...
+-------------------------------------------------------------------
+Warm up results:
+-------------------------------------------------------------------
+19x19 1_000 iterations        13.64 i/min  4.40 s (avg) (± 154.56%)
+
+Runtime results:
+-------------------------------------------------------------------
+19x19 1_000 iterations        21.87 i/min  2.74 s (avg) (± 29.37%)
+-------------------------------------------------------------------
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Benchmark</h3>
+
+    <img src="images/ruby-perf.png" />
+  </section>
+
+  <section>
+    <h3>Migration</h3>
+
+    <h4>Is hard</h4>
+  </section>
+</section>
+
+<section>
+  <h2>JavaScript</h2>
+
+  <section>
+    <h3>Benchmark (short)</h3>
+
+    <pre><code class="hljs" data-trim>
+$ node benchmark.js 3000
+Warmup started
+Warmup: 1853.430ms
+Benchmark started
+Benchmark: 1807.334ms
+
+$ /opt/graalvm/bin/node benchmark.js 3000
+Warmup started
+Warmup: 2265.431ms
+Benchmark started
+Benchmark: 2106.461ms
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Benchmark (longer)</h3>
+
+    <pre><code class="hljs" data-trim>
+$ node benchmark.js 10000
+Warmup started
+Warmup: 40323.367ms
+Benchmark started
+Benchmark: 39489.051ms
+
+$ /opt/graalvm/bin/node benchmark.js 10000
+Warmup started
+Warmup: 44803.075ms
+Benchmark started
+Benchmark: 44113.240ms
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Benchmark (long)</h3>
+
+    <pre><code class="hljs" data-trim>
+$ node benchmark.js 20000
+Warmup started
+Warmup: 231452.681ms
+Benchmark started
+Benchmark: 219918.462ms
+
+$ /opt/graalvm/bin/node benchmark.js 20000
+Warmup started
+Warmup: 238997.737ms
+Benchmark started
+Benchmark: 240039.927ms
+    </code></pre>
+  </section>
+</section>
+
+<section>
+  <h3>Tools</h3>
+
+  <section>
+    <h3>Inspector (JavaScript)</h3>
+
+    <pre><code class="hljs" data-trim>
+$ js --inspect fizzbuzz.js
+    </code></pre>
+
+    <img src="images/js-inspect.png" />
+  </section>
+
+  <section>
+    <h3>Inspector (Python)</h3>
+
+    <pre><code class="hljs" data-trim>
+$ graalpython --jvm --inspect fizzbuzz.py
+    </code></pre>
+
+    <img src="images/python-inspect.png" />
+  </section>
+
+  <section>
+    <h3>Inspector (Ruby)</h3>
+
+    <pre><code class="hljs" data-trim>
+$ ruby --inspect fizzbuzz.rb
+    </code></pre>
+
+    <img src="images/ruby-inspect.png" />
+  </section>
+
+  <section>
+    <h3>VisualVM (Ruby)</h3>
+
+    <img src="images/ruby-visualvm.png" />
+  </section>
+</section>
+
+<section>
+  <section>
+    <h2>Truffle</h2>
+
+    <section>
+      <h3>SimpleLanguage</h3>
+    </section>
+  </section>
+</section>
+
+<section>
+  <h2>Links</h2>
+
+  <ul>
+    <li><a href="https://medium.com/graalvm/graalvm-ten-things-12d9111f307d">GraalVM Ten Things</a></li>
+    <li><a href="https://pragtob.wordpress.com/2017/01/24/benchmarking-a-go-ai-in-ruby-cruby-vs-rubinius-vs-jruby-vs-truffle-a-year-later/">BENCHMARKING A GO AI IN RUBY: CRUBY VS. RUBINIUS VS. JRUBY VS. TRUFFLE – A YEAR LATER</a></li>
+  </ul>
+</section>
+
+<section>
+  <h2>Questions?</h2>
+</section>

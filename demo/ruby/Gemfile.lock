@@ -1,0 +1,14 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    rubykon (0.3.1)
+
+PLATFORMS
+  java
+  ruby
+
+DEPENDENCIES
+  rubykon
+
+BUNDLED WITH
+   1.16.3
