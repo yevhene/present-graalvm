@@ -15,7 +15,7 @@ img {
   background-color: white !important;
   max-height: 80vh !important;
   box-shadow: none !important;
-  border: 20px white solid !important;
+  border: 5px white solid !important;
 }
 
 img.blue {
