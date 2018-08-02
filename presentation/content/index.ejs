@@ -37,56 +37,35 @@
   <section>
     <h3>LLVM</h3>
 
+    <p>ActionScript, Ada, C#, Common Lisp, Crystal, CUDA, D, Delphi, Fortran, Graphical G Programming Language, Halide, Haskell, Java bytecode, Julia, Kotlin, Lua, Objective-C, OpenGL Shading Language, Pony, Rust, Scala, Swift, and Xojo.</p>
+
     <h4>Run native languages on the JVM</h3>
   </section>
+</section>
 
+<section>
   <section>
-    <h3>Combine Languages</h3>
+    <h2>Truffle</h2>
 
-    <pre><code class="hljs" data-trim>
-const express = require('express')
-const app = express()
+    <section>
+      <h3>SimpleLanguage</h3>
 
-const BigInteger = Java.type('java.math.BigInteger')
+      <p><a href="https://github.com/graalvm/simplelanguage"><i>https://github.com/</i>graalvm/simplelanguage</a></p>
+    </section>
 
-app.get('/', function (req, res) {
-  var text = 'Hello World from Graal.js!<br> '
+    <section>
+      <h3>SimpleLanguage</h3>
 
-  // Using Java standard library classes
-  text += BigInteger.valueOf(10).pow(100)
-          .add(BigInteger.valueOf(43)).toString() + '<br>'
-
-  // (continued...)
-    </code></pre>
-  </section>
-
-  <section>
-    <h3>Combine Languages</h3>
-
-    <pre><code class="hljs" data-trim>
-  text += Polyglot.eval('R',
-    `svg();
-     require(lattice);
-     x &lt;- 1:100
-     y &lt;- sin(x/10)
-     z &lt;- cos(x^1.3/(runif(1)*5+10))
-     print(cloud(x~y*z, main="cloud plot"))
-     grDevices:::svg.off()
-    `);
-
-  res.send(text)
-})
-
-app.listen(3000, function () {
-  console.log('Example app listening on port 3000!')
-})
-    </code></pre>
-  </section>
-
-  <section>
-    <h3>Combine Languages</h3>
-
-    <img src="images/combine-languages.png" />
+      <pre><code class="hljs" data-trim>
+function main() {
+  i = 0;
+  while (i &lt; 10) {
+    println(i);
+    i = i + 1;
+  }
+}
+      </code></pre>
+    </section>
   </section>
 </section>
 
@@ -230,6 +209,12 @@ Benchmark started
 Benchmark: 240039.927ms
     </code></pre>
   </section>
+
+  <section>
+    <h3>Migration</h3>
+
+    <h4>Much better</h4>
+  </section>
 </section>
 
 <section>
@@ -273,12 +258,49 @@ $ ruby --inspect fizzbuzz.rb
 </section>
 
 <section>
-  <section>
-    <h2>Truffle</h2>
+  <h2>Combine Languages</h2>
 
-    <section>
-      <h3>SimpleLanguage</h3>
-    </section>
+  <section>
+    <pre><code class="hljs" data-trim>
+const express = require('express')
+const app = express()
+
+const BigInteger = Java.type('java.math.BigInteger')
+
+app.get('/', function (req, res) {
+  var text = 'Hello World from Graal.js!<br> '
+
+  // Using Java standard library classes
+  text += BigInteger.valueOf(10).pow(100)
+          .add(BigInteger.valueOf(43)).toString() + '<br>'
+
+  // (continued...)
+    </code></pre>
+  </section>
+
+  <section>
+    <pre><code class="hljs" data-trim>
+  text += Polyglot.eval('R',
+    `svg();
+     require(lattice);
+     x &lt;- 1:100
+     y &lt;- sin(x/10)
+     z &lt;- cos(x^1.3/(runif(1)*5+10))
+     print(cloud(x~y*z, main="cloud plot"))
+     grDevices:::svg.off()
+    `);
+
+  res.send(text)
+})
+
+app.listen(3000, function() {
+  console.log('App listening on http://localhost:3000')
+})
+    </code></pre>
+  </section>
+
+  <section>
+    <img src="images/combine-languages.png" />
   </section>
 </section>
 
